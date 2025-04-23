@@ -66,8 +66,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/haval-h6-mqtt:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/haval-h6-mqtt:${{ needs.check-for-updates.outputs.version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/haval-hass-docker:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/haval-hass-docker:${{ needs.check-for-updates.outputs.version }}
       
       - name: Update Dockerfile timestamp
         run: |
