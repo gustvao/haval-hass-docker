@@ -36,10 +36,20 @@ jobs:
           LAST_COMMIT_DATE=$(git log -1 --format=%ct -- Dockerfile)
           UPSTREAM_COMMIT_DATE=$(cd upstream && git log -1 --format=%ct -- haval-h6-to-mqtt)
           
-          if [ $UPSTREAM_COMMIT_DATE -gt $LAST_COMMIT_DATE ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
+          # Add debug output to troubleshoot
+          echo "Last commit date: $LAST_COMMIT_DATE"
+          echo "Upstream commit date: $UPSTREAM_COMMIT_DATE"
+          
+          # Check if variables are set before comparison
+          if [[ -n "$UPSTREAM_COMMIT_DATE" && -n "$LAST_COMMIT_DATE" ]]; then
+            if [[ $UPSTREAM_COMMIT_DATE -gt $LAST_COMMIT_DATE ]]; then
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+            else
+              echo "has_changes=false" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "One or both commit dates are empty, defaulting to has_changes=true"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Get version
