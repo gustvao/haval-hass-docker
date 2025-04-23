@@ -47,7 +47,20 @@ jobs:
         if: steps.check.outputs.has_changes == 'true'
         run: |
           cd upstream
-          VERSION=$(grep -oP '"version": "\K[^"]+' haval-h6-to-mqtt/config.json)
+          # Find the config.json file first to confirm its location
+          echo "Finding config.json location..."
+          find . -name "config.json" | grep -v "node_modules" || echo "No config.json found"
+          
+          # Try to extract version using a more flexible approach
+          VERSION=$(find . -name "config.json" -not -path "*/node_modules/*" -exec grep -oP '"version": "\K[^"]+' {} \; | head -n 1)
+          
+          # If VERSION is empty, set a default
+          if [ -z "$VERSION" ]; then
+            VERSION=$(date +"%Y.%m.%d")
+            echo "No version found, using date as version: $VERSION"
+          fi
+          
+          echo "Found version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
   build-and-push:
