@@ -26,7 +26,7 @@ docker run -d \
   -e MQTT_USER=your-mqtt-username \
   -e MQTT_PASS=your-mqtt-password \
   -e MQTT_HOST=mqtt://your-mqtt-host:1883 \
-  gustvao/haval-hass-docker:latest
+  haval-hass-docker:latest
 ```
 
 ### Using Docker Compose
@@ -41,7 +41,7 @@ cd haval-hass-docker
 
 3. Run with:
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## GitHub Actions
