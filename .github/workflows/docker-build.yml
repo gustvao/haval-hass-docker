@@ -34,7 +34,7 @@ jobs:
           
           # For scheduled events, check for actual changes
           LAST_COMMIT_DATE=$(git log -1 --format=%ct -- Dockerfile)
-          UPSTREAM_COMMIT_DATE=$(cd upstream && git log -1 --format=%ct -- haval-h6-to-mqtt)
+          UPSTREAM_COMMIT_DATE=$(cd upstream && git log -1 --format=%ct)
           
           # Add debug output to troubleshoot
           echo "Last commit date: $LAST_COMMIT_DATE"
