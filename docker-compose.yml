@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  haval-hass-docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: haval-hass-docker
+    restart: unless-stopped
+    environment:
+      - USERNAME=gwm-login
+      - PASSWORD=gwm-password
+      - VIN=chassis
+      - PIN=app-pin
+      - REFRESH_TIME=5
+      - DEVICE_TRACKER_ENABLED=true
+      - MQTT_USER=username
+      - MQTT_PASS=password
+      - MQTT_HOST=mqtt://ip:1883 
